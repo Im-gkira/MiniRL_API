@@ -6,3 +6,4 @@ flask-smorest
 python-dotenv
 gunicorn
 flask_sqlalchemy
+requests
