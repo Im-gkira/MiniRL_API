@@ -4,11 +4,13 @@ from db import db
 import os
 from dotenv import load_dotenv
 from resources import *
+from flask_cors import CORS
 
 
 def create_app(db_url=None):
     app = Flask(__name__)
     load_dotenv()
+    CORS(app)
     app.config["PROPAGATE_EXCEPTIONS"] = True
     app.config["API_TITLE"] = "URL Shortener"
     app.config["API_VERSION"] = "v1"
@@ -20,7 +22,6 @@ def create_app(db_url=None):
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.config["SECRET_KEY"] = "155045073257778953948945358657168914613"
 
-
     api = Api(app)
     db.init_app(app)
 
@@ -30,4 +31,6 @@ def create_app(db_url=None):
         db.create_all()
 
     return app
+
+
 create_app()

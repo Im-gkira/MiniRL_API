@@ -1,5 +1,5 @@
 import flask
-from flask import request
+from flask import request, jsonify
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 from http import HTTPStatus
@@ -43,8 +43,9 @@ class Url(MethodView):
         hash_id = hash.encode(url_id)
 
         short_url = request.host_url + 'minrl/' + hash_id
-
-        return short_url
+        response = jsonify({"url": short_url})
+        response.headers.add('Access-Control-Allow-Origin', 'http://localhost:5173')
+        return response
 
 
 @bp.route("/<string:hash_id>")
