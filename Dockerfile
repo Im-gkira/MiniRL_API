@@ -4,11 +4,17 @@ FROM python:3.9-slim-buster
 # Set the working directory to /app
 WORKDIR /app
 
-COPY ./requirements.txt .
-# Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir --upgrade -r requirements.txt
+# Copy the current directory contents into the container at /app
+COPY . /app
 
-COPY . .
+# Install any needed packages specified in requirements.txt
+RUN pip install --trusted-host pypi.python.org -r requirements.txt
+
+# Expose port 5000 for the Flask app
+EXPOSE 5000
+
+# Set the environment variable to run the Flask app
+ENV FLASK_APP=app.py
 
 # Run the command to start the Flask app
 CMD ["/bin/bash", "docker-entrypoint.sh"]
