@@ -44,7 +44,7 @@ class Url(MethodView):
 
         short_url = request.host_url + 'minrl/' + hash_id
         response = jsonify({"url": short_url})
-        response.headers.add('Access-Control-Allow-Origin', 'http://localhost:5173')
+        response.headers.add('Access-Control-Allow-Origin', '*')
         return response
 
 
